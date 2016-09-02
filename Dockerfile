@@ -12,8 +12,10 @@ ENV PDI_HOME ${PENTAHO_HOME}/data-integration
 ENV BASE_REL 6.1
 ENV REV 0.1-196
 
-# Use baseimage-docker's init system.
-CMD ["/sbin/my_init"]
+ENV ANT_VERSION=1.9.7
+ENV ANT_HOME=/opt/ant
+
+
 
 #================================================
 # Customize sources for apt-get
@@ -26,6 +28,26 @@ RUN apt-get update -qqy \
   curl xvfb xz-utils zlib1g-dev libssl-dev git zip pwgen \
   bzip2 ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 \
   mercurial subversion
+
+
+#================================================
+# Apache Ant
+#================================================
+
+WORKDIR /tmp
+
+# Download and extract apache ant to opt folder
+RUN wget --no-check-certificate --no-cookies http://archive.apache.org/dist/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz \
+    && wget --no-check-certificate --no-cookies http://archive.apache.org/dist/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz.md5 \
+    && echo "$(cat apache-ant-${ANT_VERSION}-bin.tar.gz.md5) apache-ant-${ANT_VERSION}-bin.tar.gz" | md5sum -c \
+    && tar -zvxf apache-ant-${ANT_VERSION}-bin.tar.gz -C /opt/ \
+    && ln -s /opt/apache-ant-${ANT_VERSION} /opt/ant \
+    && rm -f apache-ant-${ANT_VERSION}-bin.tar.gz \
+    && rm -f apache-ant-${ANT_VERSION}-bin.tar.gz.md5
+
+# add executables to path
+RUN update-alternatives --install "/usr/bin/ant" "ant" "/opt/ant/bin/ant" 1 && \
+    update-alternatives --set "ant" "/opt/ant/bin/ant" 
 
 
 #============================
@@ -75,6 +97,10 @@ ENV PATH /opt/conda/bin:$PATH
 #====================================================================================
 # pentaho
 #====================================================================================
+
+# Use baseimage-docker's init system.
+CMD ["/sbin/my_init"]
+
 RUN useradd -m -d ${PENTAHO_HOME} pentaho
 
 # ADD pdi-ce-${BASE_REL}.${REV}.zip ${PENTAHO_HOME}/pdi-ce.zip
@@ -84,6 +110,8 @@ RUN  su -c "curl -L http://sourceforge.net/projects/pentaho/files/Data%20Integra
           rm /opt/pentaho/pdi-ce.zip
 
 # Add all files needed t properly initialize the container
+echo "current path"
+pwd
 COPY utils ${PDI_HOME}/utils
 COPY templates ${PDI_HOME}/templates
 
