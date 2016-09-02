@@ -1,5 +1,3 @@
-# FROM ubuntu:14.04
-#FROM serasoft/docker-jdk:jdk8
 FROM serasoft/docker-pentaho-pdi
 MAINTAINER Prussia <prussia.hu@gmail.com>
 
