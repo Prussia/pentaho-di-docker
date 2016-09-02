@@ -68,6 +68,14 @@ RUN apt-get install -y curl grep sed dpkg && \
 
 ENV PATH /opt/conda/bin:$PATH
 
+#================================================
+# conda install 
+#================================================
+RUN conda install numpy
+RUN conda install pandas
+RUN conda install matplotlib 
+RUN conda install sklearn 
+RUN conda install scikit-learn
 
 #================================================
 # Apache Ant
