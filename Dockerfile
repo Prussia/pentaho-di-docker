@@ -7,15 +7,8 @@ USER root
 
 ENV PATH /usr/local/bin:$PATH
 ENV LANG C.UTF-8
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 ENV PYTHON_VERSION 2.7.12
 ENV PYTHON_PIP_VERSION 8.1.2
-
-ENV HOME /root
-ENV PENTAHO_HOME /opt/pentaho
-ENV PDI_HOME ${PENTAHO_HOME}/data-integration
-ENV BASE_REL 6.1
-ENV REV 0.1-196
 
 #================================================
 # Customize sources for apt-get
@@ -25,17 +18,6 @@ RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/a
 
 RUN apt-get update -qqy \
   && apt-get -qqy install build-essential wget unzip curl xvfb xz-utils zlib1g-dev libssl-dev git zip pwgen
-
-#================================================
-# Java
-#================================================
-
-#RUN echo "deb http://archive.ubuntu.com/ubuntu trusty main universe" > /etc/apt/sources.list && \
-#    apt-get install -y software-properties-common && \
-#    add-apt-repository ppa:webupd8team/java -y && \
-#    apt-get update && \
-#    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
-#    apt-get install -y oracle-java8-installer
 
 
 #============================
