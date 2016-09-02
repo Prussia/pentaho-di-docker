@@ -22,11 +22,14 @@ RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/a
   && echo "deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n" >> /etc/apt/sources.list
 
 RUN apt-get update -qqy \
-  && apt-get -qqy install build-essential wget unzip curl xvfb xz-utils zlib1g-dev libssl-dev git zip pwgen
+  && apt-get -qqy install build-essential wget unzip \
+  curl xvfb xz-utils zlib1g-dev libssl-dev git zip pwgen \
+  bzip2 ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 \
+  mercurial subversion
 
 
 #============================
-# Python
+# Python 2
 #============================
 RUN apt-get purge -y python.*
 RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF
@@ -54,6 +57,19 @@ RUN set -x \
 # install "virtualenv", since the vast majority of users of this image will want it
 #====================================================================================
 RUN pip install --no-cache-dir virtualenv
+
+
+#===================================================================================
+# anaconda 2
+#===================================================================================
+RUN apt-get install -y curl grep sed dpkg && \
+    TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` && \
+    curl -L "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini_${TINI_VERSION}.deb" > tini.deb && \
+    dpkg -i tini.deb && \
+    rm tini.deb && \
+    apt-get clean
+
+ENV PATH /opt/conda/bin:$PATH
 
 
 #====================================================================================
