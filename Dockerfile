@@ -17,6 +17,19 @@ RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/a
 RUN apt-get update -qqy \
   && apt-get -qqy install build-essential wget unzip curl xvfb xz-utils zlib1g-dev libssl-dev
 
+#================================================
+# Java
+#================================================
+
+# Set correct environment variables.
+ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+
+RUN echo "deb http://archive.ubuntu.com/ubuntu trusty main universe" > /etc/apt/sources.list && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:webupd8team/java -y && \
+    apt-get update && \
+    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
+    apt-get install -y oracle-java8-installer
 
 
 #============================
