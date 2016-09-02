@@ -21,7 +21,7 @@ ENV PYTHON_PIP_VERSION 8.1.2
 # to resolve 
 # configure: error: no acceptable C compiler found in $PATH
 #
-RUN apt-get install build-essential
+RUN apt-get update && apt-get install -y build-essential
 
 #============================
 # https
