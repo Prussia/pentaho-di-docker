@@ -5,13 +5,16 @@ USER root
 
 ENV PYTHON_VERSION 2.7.12
 
-#==================
-# Pentaho Data Integration
-#==================
-RUN mkdir /usr/local/data_access_dev
-WORKDIR /usr/src/data_access_dev
-RUN curl -L https://sourceforge.net/projects/pentaho/files/Data%20Integration/6.1/pdi-ce-6.1.0.1-196.zip | tar xz --strip-components=1
+RUN apt-get update
 
+
+#==================
+# JDK
+#==================
+RUN add-apt-repository ppa:webupd8team/java
+RUN apt-get update
+RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+RUN apt-get -y install oracle-java8-installer oracle-java8-set-default #ant
 
 #==================
 # Python
@@ -38,8 +41,19 @@ RUN set -x \
     -exec rm -rf '{}' + \
   && rm -rf /usr/src/python
 
+#==================
+# Pentaho Data Integration
+#==================
+RUN mkdir /usr/local/data_access
+WORKDIR /usr/local/data_access
+RUN curl -L https://sourceforge.net/projects/pentaho/files/Data%20Integration/6.1/pdi-ce-6.1.0.1-196.zip | tar xz --strip-components=1
+
+
+
 
 #============================
 # Clean up
 #============================
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+
+ENV PATH=/usr/local/data_access:$PATH
