@@ -1,22 +1,21 @@
 FROM ubuntu:14.04
 MAINTAINER Prussia <prussia.hu@gmail.com>
 
+USER root
 
 ENV PATH /usr/local/bin:$PATH
 ENV LANG C.UTF-8
-
-# runtime dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-		tcl \
-		tk \
-	&& rm -rf /var/lib/apt/lists/*
-
-ENV GPG_KEY C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF
 ENV PYTHON_VERSION 2.7.12
-
-# if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
 ENV PYTHON_PIP_VERSION 8.1.2
 
+#================================================
+# Customize sources for apt-get
+#================================================
+RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/apt/sources.list \
+  && echo "deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n" >> /etc/apt/sources.list
+
+RUN apt-get update -qqy \
+  && apt-get -qqy install build-essential wget unzip curl xvfb xz-utils zlib1g-dev libssl-dev
 
 
 
