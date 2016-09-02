@@ -30,11 +30,45 @@ RUN apt-get update -qqy \
   mercurial subversion
 
 
+
+#====================================================================================
+# pentaho
+#====================================================================================
+
+# Use baseimage-docker's init system.
+CMD ["/sbin/my_init"]
+
+RUN useradd -m -d ${PENTAHO_HOME} pentaho
+
+# ADD pdi-ce-${BASE_REL}.${REV}.zip ${PENTAHO_HOME}/pdi-ce.zip
+
+RUN  su -c "curl -L http://sourceforge.net/projects/pentaho/files/Data%20Integration/${BASE_REL}/pdi-ce-${BASE_REL}.${REV}.zip/download -o /opt/pentaho/pdi-ce.zip" pentaho && \
+     su -c "unzip -q /opt/pentaho/pdi-ce.zip -d /opt/pentaho/" pentaho && \
+          rm /opt/pentaho/pdi-ce.zip
+
+# Add all files needed t properly initialize the container
+echo "current path"
+pwd
+COPY utils ${PDI_HOME}/utils
+COPY templates ${PDI_HOME}/templates
+
+# Set password to generated value
+RUN chown -Rf pentaho:pentaho ${PDI_HOME}
+
+ADD 01_init_container.sh /etc/my_init.d/01_init_container.sh
+
+ADD run /etc/service/pentaho/run
+
+RUN chmod +x /etc/my_init.d/*.sh && \
+    chmod +x /etc/service/pentaho/run
+
+EXPOSE 8080
+
 #================================================
 # Apache Ant
 #================================================
 
-WORKDIR /tmp
+#WORKDIR /tmp
 
 # Download and extract apache ant to opt folder
 RUN wget --no-check-certificate --no-cookies http://archive.apache.org/dist/ant/binaries/apache-ant-${ANT_VERSION}-bin.tar.gz \
@@ -94,38 +128,6 @@ RUN apt-get install -y curl grep sed dpkg && \
 ENV PATH /opt/conda/bin:$PATH
 
 
-#====================================================================================
-# pentaho
-#====================================================================================
-
-# Use baseimage-docker's init system.
-CMD ["/sbin/my_init"]
-
-RUN useradd -m -d ${PENTAHO_HOME} pentaho
-
-# ADD pdi-ce-${BASE_REL}.${REV}.zip ${PENTAHO_HOME}/pdi-ce.zip
-
-RUN  su -c "curl -L http://sourceforge.net/projects/pentaho/files/Data%20Integration/${BASE_REL}/pdi-ce-${BASE_REL}.${REV}.zip/download -o /opt/pentaho/pdi-ce.zip" pentaho && \
-     su -c "unzip -q /opt/pentaho/pdi-ce.zip -d /opt/pentaho/" pentaho && \
-          rm /opt/pentaho/pdi-ce.zip
-
-# Add all files needed t properly initialize the container
-echo "current path"
-pwd
-COPY utils ${PDI_HOME}/utils
-COPY templates ${PDI_HOME}/templates
-
-# Set password to generated value
-RUN chown -Rf pentaho:pentaho ${PDI_HOME}
-
-ADD 01_init_container.sh /etc/my_init.d/01_init_container.sh
-
-ADD run /etc/service/pentaho/run
-
-RUN chmod +x /etc/my_init.d/*.sh && \
-    chmod +x /etc/service/pentaho/run
-
-EXPOSE 8080
 
 #============================
 # Clean up
