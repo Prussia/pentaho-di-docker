@@ -1,4 +1,5 @@
-FROM ubuntu:14.04
+# FROM ubuntu:14.04
+FROM serasoft/docker-jdk:jdk8
 MAINTAINER Prussia <prussia.hu@gmail.com>
 
 USER root
@@ -28,12 +29,12 @@ RUN apt-get update -qqy \
 # Java
 #================================================
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu trusty main universe" > /etc/apt/sources.list && \
-    apt-get install -y software-properties-common && \
-    add-apt-repository ppa:webupd8team/java -y && \
-    apt-get update && \
-    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
-    apt-get install -y oracle-java8-installer
+#RUN echo "deb http://archive.ubuntu.com/ubuntu trusty main universe" > /etc/apt/sources.list && \
+#    apt-get install -y software-properties-common && \
+#    add-apt-repository ppa:webupd8team/java -y && \
+#    apt-get update && \
+#    echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections && \
+#    apt-get install -y oracle-java8-installer
 
 
 #============================
@@ -68,6 +69,9 @@ RUN pip install --no-cache-dir virtualenv
 # Pentaho Data Integration
 #============================
 RUN useradd -m -d ${PENTAHO_HOME} pentaho
+# Use baseimage-docker's init system.
+
+CMD ["/sbin/my_init"]
 
 # ADD pdi-ce-${BASE_REL}.${REV}.zip ${PENTAHO_HOME}/pdi-ce.zip
 
