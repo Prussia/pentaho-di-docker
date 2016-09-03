@@ -20,7 +20,6 @@ RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/a
 RUN apt-get update -qqy \
   && apt-get -qqy install build-essential wget unzip curl xvfb xz-utils zlib1g-dev libssl-dev git zip pwgen
 
-
 #===================================================================================
 # anaconda 2
 #===================================================================================
@@ -64,9 +63,9 @@ RUN update-alternatives --install "/usr/bin/ant" "ant" "/opt/ant/bin/ant" 1 && \
 # Clean up
 #============================
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
-
+RUN pwd
 RUN echo 'run python'
 
-python
-print 'test'
+RUN python
+
 
