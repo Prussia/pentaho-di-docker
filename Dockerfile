@@ -64,8 +64,6 @@ RUN update-alternatives --install "/usr/bin/ant" "ant" "/opt/ant/bin/ant" 1 && \
 #============================
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 RUN pwd
-RUN echo 'run python'
-
 RUN python
 
 
