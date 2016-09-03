@@ -21,36 +21,6 @@ RUN apt-get update -qqy \
   && apt-get -qqy install build-essential wget unzip curl xvfb xz-utils zlib1g-dev libssl-dev git zip pwgen
 
 
-#============================
-# Python
-#============================
-RUN apt-get purge -y python.*
-RUN gpg --keyserver ha.pool.sks-keyservers.net --recv-keys C01E1CAD5EA2C4F0B8E3571504C367C218ADD4FF
-RUN set -x \
-  && mkdir -p /usr/src/python \
-  && curl -SL "https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tar.xz" -o python.tar.xz \
-  && curl -SL "https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tar.xz.asc" -o python.tar.xz.asc \
-  && gpg --verify python.tar.xz.asc \
-  && tar -xJC /usr/src/python --strip-components=1 -f python.tar.xz \
-  && rm python.tar.xz* \
-  && cd /usr/src/python \
-  && ./configure --enable-shared --enable-unicode=ucs4 \
-  && make -j$(nproc) \
-  && make install \
-  && ldconfig \
-  && curl -SL 'https://bootstrap.pypa.io/get-pip.py' | python2 \
-  && pip install --upgrade pip==$PYTHON_PIP_VERSION \
-  && find /usr/local \
-    \( -type d -a -name test -o -name tests \) \
-    -o \( -type f -a -name '*.pyc' -o -name '*.pyo' \) \
-    -exec rm -rf '{}' + \
-  && rm -rf /usr/src/python ~/.cache
-
-#====================================================================================
-# install "virtualenv", since the vast majority of users of this image will want it
-#====================================================================================
-RUN pip install --no-cache-dir virtualenv
-
 #===================================================================================
 # anaconda 2
 #===================================================================================
@@ -94,4 +64,9 @@ RUN update-alternatives --install "/usr/bin/ant" "ant" "/opt/ant/bin/ant" 1 && \
 # Clean up
 #============================
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+
+RUN echo 'run python'
+
+python
+print 'test'
 
