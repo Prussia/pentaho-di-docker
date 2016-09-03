@@ -104,8 +104,6 @@ RUN  su -c "curl -L http://sourceforge.net/projects/pentaho/files/Data%20Integra
           rm /opt/pentaho/pdi-ce.zip
 
 # Add all files needed t properly initialize the container
-echo "current path"
-pwd
 COPY utils ${PDI_HOME}/utils
 COPY templates ${PDI_HOME}/templates
 
