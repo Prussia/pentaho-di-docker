@@ -18,11 +18,13 @@ ENV ANT_HOME=/opt/ant
 #================================================
 # Customize sources for apt-get
 #================================================
-RUN apt-get update -qqy \
-  && apt-get -qqy install build-essential wget unzip \
-  curl xvfb xz-utils zlib1g-dev libssl-dev git zip pwgen \
-  bzip2 ca-certificates libglib2.0-0 libxext6 libsm6 libxrender1 \
-  mercurial subversion
+RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/apt/sources.list \
+  && echo "deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n" >> /etc/apt/sources.list
+
+RUN apt-get update -qqy && apt-get -qqy install \
+  build-essential wget unzip curl \
+  xz-utils zlib1g-dev libssl-dev \
+  git zip pwgen
 
 #================================================
 # Apache Ant
