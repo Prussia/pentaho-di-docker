@@ -1,6 +1,7 @@
 FROM serasoft/docker-jdk:jdk8
 MAINTAINER Prussia <prussia.hu@gmail.com>
 
+USER root
 ENV PATH /usr/local/bin:$PATH
 ENV LANG C.UTF-8
 
@@ -13,10 +14,13 @@ ENV REV 0.1-196
 #================================================
 # Customize sources for apt-get
 #================================================
+RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/apt/sources.list \
+  && echo "deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n" >> /etc/apt/sources.list
 
-RUN apt-get update -y && apt-get -y install \
+RUN apt-get update -qqy && apt-get -qqy install \
   build-essential wget unzip curl \
-  xz-utils zlib1g-dev libssl-dev 
+  xz-utils zlib1g-dev libssl-dev \
+  git zip pwgen
 
 #===================================================================================
 # anaconda 2
