@@ -3,8 +3,6 @@ MAINTAINER Prussia <prussia.hu@gmail.com>
 
 ENV PATH /usr/local/bin:$PATH
 ENV LANG C.UTF-8
-ENV PYTHON_VERSION 2.7.12
-ENV PYTHON_PIP_VERSION 8.1.2
 
 ENV HOME /root
 ENV PENTAHO_HOME /opt/pentaho
@@ -16,7 +14,7 @@ ENV REV 0.1-196
 # Customize sources for apt-get
 #================================================
 
-RUN apt-get update -qqy && apt-get -qqy install \
+RUN apt-get update -y && apt-get -y install \
   build-essential wget unzip curl \
   xz-utils zlib1g-dev libssl-dev 
 
