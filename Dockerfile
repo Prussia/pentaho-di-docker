@@ -1,4 +1,4 @@
-FROM prussia2016/playdocker:jdk8
+FROM serasoft/docker-jdk:jdk8
 MAINTAINER Prussia <prussia.hu@gmail.com>
 
 ENV PATH /usr/local/bin:$PATH
@@ -15,13 +15,10 @@ ENV REV 0.1-196
 #================================================
 # Customize sources for apt-get
 #================================================
-RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/apt/sources.list \
-  && echo "deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n" >> /etc/apt/sources.list
 
 RUN apt-get update -qqy && apt-get -qqy install \
   build-essential wget unzip curl \
-  xz-utils zlib1g-dev libssl-dev \
-  git zip pwgen
+  xz-utils zlib1g-dev libssl-dev 
 
 #===================================================================================
 # anaconda 2
@@ -66,6 +63,13 @@ RUN chmod +x /etc/my_init.d/*.sh && \
     chmod +x /etc/service/pentaho/run
 
 EXPOSE 8080
+
+#====================================================================================
+# pentaho cpython
+#====================================================================================
+RUN  su -c "curl -L https://github.com/pentaho-labs/pentaho-cpython-plugin/releases/download/v1.0/pentaho-cpython-plugin-package-1.0-SNAPSHOT.zip -o /opt/pentaho/pentaho-cpython.zip" pentaho-cpython && \
+     su -c "unzip -q /opt/pentaho/pentaho-cpython.zip -d /opt/pentaho/plugins" pentaho-cpython && \
+          rm /opt/pentaho/pentaho-cpython.zip
 
 
 
