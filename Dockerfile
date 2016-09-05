@@ -1,4 +1,4 @@
-FROM serasoft/docker-jdk:jdk8
+FROM prussia2016/playDocker:jdk8
 MAINTAINER Prussia <prussia.hu@gmail.com>
 
 ENV PATH /usr/local/bin:$PATH
