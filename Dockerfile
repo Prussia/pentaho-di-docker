@@ -38,9 +38,7 @@ ENV PATH /opt/conda/bin:$PATH
 #====================================================================================
 # pentaho cpython
 #====================================================================================
-RUN  su -c "curl -L https://github.com/pentaho-labs/pentaho-cpython-plugin/releases/download/v1.0/pentaho-cpython-plugin-package-1.0-SNAPSHOT.zip -o /opt/pentaho/pentaho-cpython.zip" pentaho-cpython && \
-     su -c "unzip -q /opt/pentaho/pentaho-cpython.zip -d /opt/pentaho/plugins" pentaho-cpython && \
-          rm /opt/pentaho/pentaho-cpython.zip
+ADD https://github.com/pentaho-labs/pentaho-cpython-plugin/releases/download/v1.0/pentaho-cpython-plugin-package-1.0-SNAPSHOT.zip /opt/pentaho/plugins
 
 #============================
 # Clean up
