@@ -49,7 +49,6 @@ RUN set -x \
 # install "virtualenv", since the vast majority of users of this image will want it
 #====================================================================================
 RUN pip install --no-cache-dir virtualenv
-RUN pip install pickle
 RUN pip install sklearn
 RUN pip install matplotlib
 RUN pip install numpy
