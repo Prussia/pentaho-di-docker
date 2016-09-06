@@ -6,8 +6,6 @@ USER root
 ENV PATH /usr/local/bin:$PATH
 ENV LANG C.UTF-8
 #=========================
-ENV PYTHON_VERSION 2.7.12
-ENV PYTHON_PIP_VERSION 8.1.2
 
 #================================================
 # Customize sources for apt-get
