@@ -62,7 +62,7 @@ ENV PATH $PATH:$PYTHONPATH
 ADD https://github.com/pentaho-labs/pentaho-cpython-plugin/releases/download/v1.0/pentaho-cpython-plugin-package-1.0-SNAPSHOT.zip /opt/pentaho/data-integration/plugins/pentaho-cpython.zip
 
 
-RUN unzip -q /opt/pentaho/data-integration/plugins/pentaho-cpython.zip -d /opt/pentaho/plugins/  
+RUN unzip -q /opt/pentaho/data-integration/plugins/pentaho-cpython.zip -d /opt/pentaho/data-integration/plugins/ 
 
 #============================
 # Clean up
