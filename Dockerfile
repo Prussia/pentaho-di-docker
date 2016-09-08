@@ -18,7 +18,7 @@ RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/a
 RUN apt-get update -qqy && apt-get -qqy install \
   build-essential wget unzip curl \
   xz-utils zlib1g-dev libssl-dev \
-  git zip pwgen
+  git zip pwgen python-qt4
 
 #============================
 # Python
