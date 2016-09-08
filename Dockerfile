@@ -16,7 +16,7 @@ RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/a
 RUN apt-get update -qqy && apt-get -qqy install \
   build-essential wget unzip curl \
   xz-utils zlib1g-dev libssl-dev \
-  git zip pwgen
+  git zip pwgen python-qt4
 
 #===================================================================================
 # anaconda 2
@@ -42,7 +42,7 @@ ADD https://github.com/pentaho-labs/pentaho-cpython-plugin/releases/download/v1.
 
 RUN unzip -q /opt/pentaho/data-integration/plugins/pentaho-cpython.zip -d /opt/pentaho/data-integration/plugins 
 
-#RUN rm /opt/pentaho/data-integration/plugins/pentaho-cpython.zip
+RUN rm /opt/pentaho/data-integration/plugins/pentaho-cpython.zip
 
 #============================
 # Clean up
