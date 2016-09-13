@@ -44,9 +44,33 @@ RUN unzip -q /opt/pentaho/data-integration/plugins/pentaho-cpython.zip -d /opt/p
 
 RUN rm /opt/pentaho/data-integration/plugins/pentaho-cpython.zip
 
+#====================================================================================
+# tomcat 8
+#====================================================================================
+
+ENV TOMCAT_MAJOR_VERSION 8
+ENV TOMCAT_MINOR_VERSION 8.0.36
+ENV CATALINA_HOME /usr/local/tomcat
+#ENV JAVA_OPTS "-Dfile.encoding=UTF-8 -Xms512m -Xmx512m -XX:MaxPermSize=256m"
+
+RUN mkdir -p $CATALINA_HOME
+
+# INSTALL TOMCAT
+RUN cd $HOME \
+ wget -q https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION}/v${TOMCAT_MINOR_VERSION}/bin/apache-tomcat-${TOMCAT_MINOR_VERSION}.tar.gz && \
+    wget -qO- https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION}/v${TOMCAT_MINOR_VERSION}/bin/apache-tomcat-${TOMCAT_MINOR_VERSION}.tar.gz.md5 | md5sum -c - && \
+    tar zxf apache-tomcat-*.tar.gz && \
+    rm apache-tomcat-*.tar.gz && \
+    mv apache-tomcat* $CATALINA_HOME/
+
+RUN cd $HOME/bin \ 
+    startup.sh
+
 #============================
 # Clean up
 #============================
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+
+EXPOSE 8080
 
 
