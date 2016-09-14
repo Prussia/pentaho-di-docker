@@ -63,7 +63,7 @@ RUN cd $HOME && \
     rm apache-tomcat-*.tar.gz && \
     mv apache-tomcat* $CATALINA_HOME/
 
-RUN cd $HOME/bin \ 
+RUN cd $HOME/bin && \ 
     startup.sh
 
 #============================
