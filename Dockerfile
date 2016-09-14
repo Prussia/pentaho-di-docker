@@ -50,20 +50,20 @@ RUN rm /opt/pentaho/data-integration/plugins/pentaho-cpython.zip
 
 ENV TOMCAT_MAJOR_VERSION 8
 ENV TOMCAT_MINOR_VERSION 8.0.36
-ENV CATALINA_HOME /usr/local/tomcat
+ENV CATALINA_HOME /usr/local/tomcat/apache-tomcat-$TOMCAT_MINOR_VERSION
 #ENV JAVA_OPTS "-Dfile.encoding=UTF-8 -Xms512m -Xmx512m -XX:MaxPermSize=256m"
 
 RUN mkdir -p $CATALINA_HOME
 
 # INSTALL TOMCAT
-RUN cd $HOME && \
+RUN cd $CATALINA_HOME && \
  wget -q https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION}/v${TOMCAT_MINOR_VERSION}/bin/apache-tomcat-${TOMCAT_MINOR_VERSION}.tar.gz && \
     wget -qO- https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION}/v${TOMCAT_MINOR_VERSION}/bin/apache-tomcat-${TOMCAT_MINOR_VERSION}.tar.gz.md5 | md5sum -c - && \
     tar zxf apache-tomcat-*.tar.gz && \
     rm apache-tomcat-*.tar.gz && \
-    mv apache-tomcat* $CATALINA_HOME/
+    mv apache-tomcat* $CATALINA_HOME
 
-RUN cd $HOME/bin && \ 
+RUN cd $CATALINA_HOME/bin && \ 
     ./catalina.sh run
 
 #============================
