@@ -53,6 +53,7 @@ ENV TOMCAT_MINOR_VERSION 8.0.36
 ENV CATALINA_HOME /usr/local/tomcat/apache-tomcat-$TOMCAT_MINOR_VERSION
 #ENV JAVA_OPTS "-Dfile.encoding=UTF-8 -Xms512m -Xmx512m -XX:MaxPermSize=256m"
 
+RUN mkdir -p /usr/local/tomcat/
 RUN mkdir -p $CATALINA_HOME
 
 # INSTALL TOMCAT
