@@ -64,7 +64,7 @@ RUN cd $HOME && \
     mv apache-tomcat* $CATALINA_HOME/
 
 RUN cd $HOME/bin && \ 
-    ./startup.sh
+    ./catalina.sh run
 
 #============================
 # Clean up
