@@ -1,4 +1,4 @@
-FROM prussia2016/playDocker:tomcat8
+FROM prussia2016/playdocker:tomcat8
 MAINTAINER Prussia <prussia.hu@gmail.com>
 
 USER root
