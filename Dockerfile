@@ -1,4 +1,4 @@
-FROM serasoft/docker-pentaho-pdi
+FROM tomcat:8.0-jre8
 MAINTAINER Prussia <prussia.hu@gmail.com>
 
 USER root
@@ -55,14 +55,6 @@ RUN pip install numpy
 RUN pip install pandas
  
 ENV PATH $PATH:$PYTHONPATH
-
-#====================================================================================
-# pentaho cpython
-#====================================================================================
-ADD https://github.com/pentaho-labs/pentaho-cpython-plugin/releases/download/v1.0/pentaho-cpython-plugin-package-1.0-SNAPSHOT.zip /opt/pentaho/data-integration/plugins/pentaho-cpython.zip
-
-
-RUN unzip -q /opt/pentaho/data-integration/plugins/pentaho-cpython.zip -d /opt/pentaho/data-integration/plugins/ 
 
 #============================
 # Clean up
