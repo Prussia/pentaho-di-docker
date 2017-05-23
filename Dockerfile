@@ -1,4 +1,4 @@
-FROM prussia2016/playdocker:tomcat8
+FROM 8.0-jre8
 MAINTAINER Prussia <prussia.hu@gmail.com>
 
 USER root
@@ -51,4 +51,5 @@ ENV PATH /opt/conda/bin:$PATH
 #============================
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
 
-
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
