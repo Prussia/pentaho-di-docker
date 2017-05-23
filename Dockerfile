@@ -27,7 +27,7 @@ RUN apt-get -qqy install \
   git zip 
   
 RUN apt-get -qqy install \
-  pwgen qtcreator pyqt5-dev-tools
+  pwgen 
 
 #===================================================================================
 # anaconda 3
