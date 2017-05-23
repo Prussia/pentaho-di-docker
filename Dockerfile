@@ -1,4 +1,4 @@
-FROM 8.0-jre8
+FROM tomcat:8.0-jre8
 MAINTAINER Prussia <prussia.hu@gmail.com>
 
 USER root
