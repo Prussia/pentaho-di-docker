@@ -15,10 +15,8 @@ ENV PYTHON_PIP_VERSION 8.1.2
 RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/apt/sources.list \
   && echo "deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n" >> /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y apt-transport-https
-
 RUN apt-get -qqy install \
-  build-essential wget unzip curl 
+  build-essential unzip   
 
 RUN apt-get -qqy install \
   xz-utils zlib1g-dev libssl-dev 
