@@ -23,9 +23,13 @@ RUN apt-get -qqy install \
 
 RUN apt-get -qqy install \
   xz-utils zlib1g-dev libssl-dev 
+
+RUN apt-get -qqy install \
+  git zip 
+
   
 RUN apt-get -qqy install \
-  git zip pwgen python-qt4
+  pwgen python-qt4
 
 #============================
 # Python
