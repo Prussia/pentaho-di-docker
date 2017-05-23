@@ -15,17 +15,7 @@ ENV PYTHON_PIP_VERSION 8.1.2
 RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/apt/sources.list \
   && echo "deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n" >> /etc/apt/sources.list
 
-RUN apt-get -qqy install \
-  build-essential unzip   
 
-RUN apt-get -qqy install \
-  xz-utils zlib1g-dev libssl-dev 
-
-RUN apt-get -qqy install \
-  git zip 
-  
-RUN apt-get -qqy install \
-  pwgen 
 
 #===================================================================================
 # anaconda 3
