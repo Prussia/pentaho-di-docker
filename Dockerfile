@@ -6,16 +6,12 @@ USER root
 #ENV PATH /usr/local/bin:$PATH
 ENV LANG C.UTF-8
 #=========================
-ENV PYTHON_VERSION 2.7.12
-ENV PYTHON_PIP_VERSION 8.1.2
 
 #================================================
 # Customize sources for apt-get
 #================================================
-RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/apt/sources.list \
-  && echo "deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n" >> /etc/apt/sources.list
-
-
+#RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/apt/sources.list \
+# && echo "deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n" >> /etc/apt/sources.list
 
 #===================================================================================
 # anaconda 3
