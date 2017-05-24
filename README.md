@@ -2,6 +2,7 @@
 pentaho data integration in docker instance
 
 make volume mapping to /opt/pentaho/data-integration
+
 Remove the pentaho kettle inside and make it based on tomcat 8
 
 <div>
