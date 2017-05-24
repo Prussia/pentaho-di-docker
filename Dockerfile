@@ -3,15 +3,8 @@ MAINTAINER Prussia <prussia.hu@gmail.com>
 
 USER root
 #=========================
-#ENV PATH /usr/local/bin:$PATH
 ENV LANG C.UTF-8
 #=========================
-
-#================================================
-# Customize sources for apt-get
-#================================================
-#RUN  echo "deb http://archive.ubuntu.com/ubuntu trusty main universe\n" > /etc/apt/sources.list \
-# && echo "deb http://archive.ubuntu.com/ubuntu trusty-updates main universe\n" >> /etc/apt/sources.list
 
 #===================================================================================
 # anaconda 3
