@@ -4,6 +4,7 @@ MAINTAINER Prussia <prussia.hu@gmail.com>
 USER root
 #=========================
 ENV LANG C.UTF-8
+RUN mkdir -p /opt/pentaho/data-integration
 #=========================
 
 #===================================================================================
